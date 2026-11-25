@@ -2,37 +2,42 @@
 
 A lightweight agentic system that accepts natural-language goals, creates goal-aware execution plans, uses multiple tools, handles failures, and generates structured research reports.
 
-## Project Overview
+## 1. Project Overview
 
 The Agentic Research and Decision Agent automates a research workflow using a local rule-based planner and multiple tools.
 
-It can:
-- Accept a high-level natural-language goal.
-- Generate an execution plan based on goal keywords.
-- Search the web for relevant information.
-- Fetch and extract webpage content.
-- Perform safe mathematical calculations.
-- Retry failed operations.
-- Switch to alternative sources when a website is unavailable.
-- Generate JSON and Markdown reports.
-- Maintain visible execution logs.
+### Key Features
 
-## Architecture
+- Accepts high-level natural-language goals.
+- Generates execution plans based on goal keywords.
+- Searches the web for relevant information.
+- Fetches and extracts webpage content.
+- Performs safe mathematical calculations.
+- Retries failed operations.
+- Switches to alternative sources when a webpage is unavailable.
+- Records execution and recovery events.
+- Generates JSON and Markdown reports.
+- Provides a Streamlit dashboard for interacting with the agent.
 
-The system consists of:
-1. Planner – creates goal-aware execution plans.
-2. Executor – coordinates planned tasks.
-3. Web Search Tool – discovers relevant sources.
-4. URL Fetcher – extracts webpage content.
-5. Calculator – evaluates mathematical expressions safely.
-6. Recovery Manager – retries failed requests and selects alternative sources.
-7. Report Generator – creates structured reports.
+## 2. Architecture
+
+The system consists of the following components:
+
+1. **Planner:** Creates goal-aware execution plans.
+2. **Executor:** Coordinates planned tasks and tool execution.
+3. **Web Search Tool:** Discovers relevant sources.
+4. **URL Fetcher:** Extracts webpage content.
+5. **Calculator:** Evaluates mathematical expressions safely.
+6. **Recovery Manager:** Retries failed requests and selects alternative sources.
+7. **Report Generator:** Creates structured reports.
+8. **Streamlit Frontend:** Displays execution plans, tool results, recovery information, and downloadable reports.
 
 See `docs/architecture.md` for the architecture diagram.
 
-## Technology Stack
+## 3. Technology Stack
 
 - Python 3
+- Streamlit
 - DuckDuckGo Search (`ddgs`)
 - Requests
 - BeautifulSoup
@@ -40,7 +45,7 @@ See `docs/architecture.md` for the architecture diagram.
 - JSON
 - Markdown
 
-## Project Structure
+## 4. Project Structure
 
 ```text
 agentic-research-agent/
@@ -57,27 +62,39 @@ agentic-research-agent/
 │   ├── planner.py
 │   └── executor.py
 ├── docs/
-│   └── architecture.md
+│   ├── architecture.md
+│   └── design_writeup.md
+├── logs/
+│   ├── sample_run_1.txt
+│   ├── sample_run_2.txt
+│   └── sample_run_3.txt
 ├── reports/
 │   ├── research_report.json
 │   └── research_report.md
-├── logs/
-├── tests/
+├── frontend.py
 ├── main.py
 ├── requirements.txt
-└── README.md
+├── README.md
+├── test_planner.py
+├── test_search.py
+├── test_fetch.py
+├── test_calculator.py
+├── test_executor.py
+├── test_recovery.py
+├── test_reporting.py
+└── test_agent_recovery.py
 ```
 
-## Installation
+## 5. Installation
 
 Clone the repository:
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/Bhoomig06/agentic-research-agent.git
 cd agentic-research-agent
 ```
 
-Create a virtual environment:
+Create and activate a virtual environment:
 
 ```bash
 python3 -m venv .venv
@@ -90,21 +107,38 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-## Run the Project
+## 6. Run the Project
 
-Run the reporting demonstration:
+### Launch the Streamlit Dashboard
+
+```bash
+python -m streamlit run frontend.py
+```
+
+The dashboard allows users to:
+- Enter a research goal.
+- View the generated execution plan.
+- Inspect tool execution results.
+- View failure and recovery information.
+- Explore collected research sources.
+- Download JSON and Markdown reports.
+- Enable a synthetic failure demonstration.
+
+### Run Backend Demonstrations
+
+Integrated reporting demonstration:
 
 ```bash
 python test_reporting.py
 ```
 
-Run planner tests:
+Planner tests:
 
 ```bash
 python test_planner.py
 ```
 
-Run the integrated failure-recovery demonstration:
+Integrated failure-recovery demonstration:
 
 ```bash
 python test_agent_recovery.py
@@ -112,7 +146,7 @@ python test_agent_recovery.py
 
 Generated reports are saved in the `reports/` directory.
 
-## Example Goal
+## 7. Example Goal
 
 ```text
 Research the latest developments in Generative AI in 2026.
@@ -120,30 +154,42 @@ Research the latest developments in Generative AI in 2026.
 
 The planner generates research steps, the executor searches and fetches webpages, and the reporting module produces JSON and Markdown outputs.
 
-## Failure Recovery Demonstration
+## 8. Failure Recovery Demonstration
 
-The project includes a synthetic temporary network failure.
+The project includes controlled synthetic network failures to test recovery behaviour.
 
 The recovery mechanism:
+
 1. Attempts the requested operation.
 2. Records the failure.
 3. Retries the operation.
 4. Moves to another source if the URL remains unavailable.
 5. Records recovery events and unresolved failures.
 
-## Testing
+The Streamlit dashboard includes an option to enable the synthetic failure demonstration.
 
-The project includes tests for:
+## 9. Testing
+
+The project includes individual test scripts covering:
+
 - Planning
 - Web search
 - URL fetching
-- Calculator
-- Executor
+- Calculator functionality
+- Executor behaviour
 - Retry mechanism
 - Integrated failure recovery
 - Report generation
 
-## Design Decisions
+Sample execution traces are available in the `logs/` directory.
+
+| Log file | Demonstration |
+|---|---|
+| `sample_run_1.txt` | Synthetic failure and alternative-source recovery |
+| `sample_run_2.txt` | Successful retry after a simulated timeout |
+| `sample_run_3.txt` | Calculator functional tests |
+
+## 10. Design Decisions
 
 The planner uses local keyword-based rules instead of an external LLM API. This keeps the prototype lightweight and avoids API costs.
 
@@ -151,15 +197,16 @@ The calculator uses Python AST parsing with an allowlist of mathematical operati
 
 The recovery manager records individual failures and supports retry and alternative-source selection.
 
-## Limitations
+## 11. Limitations
 
 - Planning is keyword-based rather than LLM-driven.
 - Search results and website access depend on external services.
 - Webpage extraction may be incomplete.
 - The system does not yet generate a verified synthesis of research findings.
 - The calculator currently evaluates expressions provided by the executor rather than extracting arbitrary expressions from natural-language goals.
+- Execution activity is displayed after completion rather than streamed live.
 
-## Future Improvements
+## 12. Future Improvements
 
 - Integrate an LLM-based planning module.
 - Add dynamic tool selection.
@@ -167,9 +214,19 @@ The recovery manager records individual failures and supports retry and alternat
 - Add more tools and APIs.
 - Introduce persistent execution memory.
 - Add automated tests and evaluation metrics.
+- Improve monitoring and execution visualisation.
+
+## 13. Documentation
+
+Additional project documentation:
+
+- `docs/architecture.md` – System architecture and component workflow.
+- `docs/design_writeup.md` – Design decisions, assumptions, testing, limitations, and future improvements.
+- `logs/` – Sample execution traces.
+- `reports/` – Generated research reports.
 
 ## Author
 
-Bhoomi Garg
+**Bhoomi Garg**
 
 B.Tech Computer Science and Engineering
