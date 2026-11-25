@@ -1,0 +1,18 @@
+
+[CALCULATOR] Calculating: 85 * 0.9
+[CALCULATOR] Result: 76.5
+Expression: 85 * 0.9
+Result: 76.5
+----------------------------------------
+
+[CALCULATOR] Calculating: (8 + 9 + 7) / 3
+[CALCULATOR] Result: 8.0
+Expression: (8 + 9 + 7) / 3
+Result: 8.0
+----------------------------------------
+
+[CALCULATOR] Calculating: 100 - 25
+[CALCULATOR] Result: 75
+Expression: 100 - 25
+Result: 75
+----------------------------------------

@@ -1,0 +1,76 @@
+
+STARTING RESEARCH AGENT
+
+[PLANNER] Analyzing user goal...
+[PLANNER] Research task identified.
+[PLANNER] Generated 3 execution steps successfully.
+[PLANNER] Step 1: Search for relevant information -> web_search
+[PLANNER] Step 2: Fetch the first relevant source -> fetch_url
+[PLANNER] Step 3: Fetch another relevant source -> fetch_url
+
+=======================================================
+[EXECUTOR] STEP 1
+[EXECUTOR] Task: Search for relevant information
+[EXECUTOR] Selected Tool: web_search
+=======================================================
+[RECOVERY] Search attempt 1
+
+[WEB SEARCH] Searching for: Research the latest developments in Generative AI in 2026.
+[WEB SEARCH] Found 5 results.
+[EXECUTOR] Step completed successfully.
+
+=======================================================
+[EXECUTOR] STEP 2
+[EXECUTOR] Task: Fetch the first relevant source
+[EXECUTOR] Selected Tool: fetch_url
+=======================================================
+[VALIDATION] Redirect URL skipped: www.bing.com
+
+[EXECUTOR] Processing source: https://www.aihandbook.io/guides/generative-ai-trends/
+
+[RECOVERY] Website Fetch: Attempt 1/2
+[RECOVERY] Attempt 1 failed: Synthetic failure: simulated temporary timeout.
+[RECOVERY] Retrying operation...
+
+[RECOVERY] Website Fetch: Attempt 2/2
+
+[URL FETCHER] Opening: https://www.aihandbook.io/guides/generative-ai-trends/
+[RECOVERY] Attempt 2 failed: 520 Server Error: <none> for url: https://www.aihandbook.io/guides/generative-ai-trends/
+[RECOVERY] All 2 attempts failed.
+[RECOVERY] Moving to another source.
+
+[EXECUTOR] Processing source: https://hai.stanford.edu/ai-index/2026-ai-index-report
+
+[RECOVERY] Website Fetch: Attempt 1/2
+
+[URL FETCHER] Opening: https://hai.stanford.edu/ai-index/2026-ai-index-report
+[URL FETCHER] Content extracted successfully.
+[RECOVERY] Website Fetch succeeded on attempt 1.
+[EXECUTOR] Step completed successfully.
+
+=======================================================
+[EXECUTOR] STEP 3
+[EXECUTOR] Task: Fetch another relevant source
+[EXECUTOR] Selected Tool: fetch_url
+=======================================================
+
+[EXECUTOR] Processing source: https://www.techtarget.com/ai/feature/The-future-of-generative-AI-10-trends-to-follow-in-2026
+
+[RECOVERY] Website Fetch: Attempt 1/2
+
+[URL FETCHER] Opening: https://www.techtarget.com/ai/feature/The-future-of-generative-AI-10-trends-to-follow-in-2026
+[URL FETCHER] Content extracted successfully.
+[RECOVERY] Website Fetch succeeded on attempt 1.
+[EXECUTOR] Step completed successfully.
+
+GENERATING FINAL REPORT
+
+[REPORTING] Reports generated successfully.
+[REPORTING] JSON: reports/research_report.json
+[REPORTING] Markdown: reports/research_report.md
+
+GENERATED FILES
+{'json_report': 'reports/research_report.json', 'markdown_report': 'reports/research_report.md'}
+
+FINAL SUMMARY
+{'total_search_results': 5, 'successfully_fetched_pages': 2, 'successful_tool_executions': 3, 'failed_source_urls': 1, 'failed_attempts': 2, 'recovered_by_retry': 0, 'alternative_source_recoveries': 1, 'unresolved_workflow_steps': 0, 'recovery_events': [{'step_id': 2, 'tool': 'fetch_url', 'url': 'https://www.aihandbook.io/guides/generative-ai-trends/', 'attempts': 2, 'errors': [{'attempt': 1, 'error': 'Synthetic failure: simulated temporary timeout.'}, {'attempt': 2, 'error': '520 Server Error: <none> for url: https://www.aihandbook.io/guides/generative-ai-trends/'}], 'recovered': False}], 'skipped_steps': [], 'sources': [{'title': 'The 2026 AI Index Report | Stanford HAI', 'url': 'https://hai.stanford.edu/ai-index/2026-ai-index-report'}, {'title': 'The future of generative AI: 10 trends to follow in 2026 | TechTarget', 'url': 'https://www.techtarget.com/ai/feature/The-future-of-generative-AI-10-trends-to-follow-in-2026'}]}

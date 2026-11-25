@@ -1,0 +1,12 @@
+
+STARTING FAILURE RECOVERY DEMONSTRATION
+
+[RECOVERY] Synthetic Web Request: Attempt 1/3
+[RECOVERY] Attempt 1 failed: Synthetic test failure: simulated network timeout.
+[RECOVERY] Retrying operation...
+
+[RECOVERY] Synthetic Web Request: Attempt 2/3
+[RECOVERY] Synthetic Web Request succeeded on attempt 2.
+
+FINAL RECOVERY RESULT
+{'success': True, 'data': {'success': True, 'message': 'Operation recovered successfully.'}, 'attempts': 2, 'attempt_errors': [{'attempt': 1, 'error': 'Synthetic test failure: simulated network timeout.'}], 'error': None}
